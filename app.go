@@ -26,6 +26,16 @@ func getAll(c *gin.Context) {
 	c.JSON(200, posts)
 }
 
+func getById(c *gin.Context) {
+	id := c.Param("id")
+
+	var post Post
+
+	DB.First(&post, id)
+
+	c.JSON(200, post)
+}
+
 func create(c *gin.Context) {
 	var body struct {
 		Title string
@@ -57,6 +67,7 @@ func main() {
 
 	r.GET("/", hello)
 	r.GET("/posts", getAll)
+	r.GET("/posts/:id", getById)
 	r.POST("/posts", create)
 
 	r.Run()
