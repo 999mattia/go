@@ -55,6 +55,38 @@ func create(c *gin.Context) {
 	c.JSON(201, post)
 }
 
+func update(c *gin.Context) {
+	id := c.Param("id")
+
+	var body struct {
+		Title string
+		Text  string
+	}
+
+	c.Bind(&body)
+
+	var post Post
+
+	DB.First(&post, id)
+
+	post.Title = body.Title
+	post.Text = body.Text
+
+	DB.Save(&post)
+
+	c.JSON(200, post)
+}
+
+func delete(c *gin.Context) {
+	id := c.Param("id")
+
+	var post Post
+
+	DB.Delete(&post, id)
+
+	c.Status(200)
+}
+
 func main() {
 	DB, err = gorm.Open(postgres.Open("postgres://asoggexd:9tqUok-Xb7IyYHHzsry-c1HdLPYYgsMd@kandula.db.elephantsql.com/asoggexd"), &gorm.Config{})
 	if err != nil {
@@ -69,6 +101,8 @@ func main() {
 	r.GET("/posts", getAll)
 	r.GET("/posts/:id", getById)
 	r.POST("/posts", create)
+	r.PUT("/posts/:id", update)
+	r.DELETE("/posts/:id", delete)
 
 	r.Run()
 }
