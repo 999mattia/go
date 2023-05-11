@@ -103,6 +103,7 @@ func main() {
 	r.POST("/api/posts", create)
 	r.PUT("/api/posts/:id", update)
 	r.DELETE("/api/posts/:id", delete)
+	r.StaticFile("/", "./static/index.html")
 
 	r.Run()
 }
