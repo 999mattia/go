@@ -97,13 +97,12 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/api", hello)
-	r.GET("/api/posts", getAll)
-	r.GET("/api/posts/:id", getById)
-	r.POST("/api/posts", create)
-	r.PUT("/api/posts/:id", update)
-	r.DELETE("/api/posts/:id", delete)
-	r.StaticFile("/", "./static/index.html")
+	r.GET("/", hello)
+	r.GET("/posts", getAll)
+	r.GET("/posts/:id", getById)
+	r.POST("/posts", create)
+	r.PUT("/posts/:id", update)
+	r.DELETE("/posts/:id", delete)
 
 	r.Run()
 }
