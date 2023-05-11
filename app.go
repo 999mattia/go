@@ -36,7 +36,7 @@ func create(c *gin.Context) {
 
 	post := Post{Title: body.Title, Text: body.Text}
 
-	result := DB.Create(post)
+	result := DB.Create(&post)
 	if result.Error != nil {
 		c.Status(400)
 		return
